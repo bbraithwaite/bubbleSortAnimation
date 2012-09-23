@@ -3,7 +3,7 @@
 <head>
 <title>Bubble Sort Animation</title>
 <style style="text/css">
-body {text-align:center;}
+#animation {text-align:center;}
 #run,#reset {margin-top: 10px;}
 .container {padding-top:10px;width: 110px;margin:auto;text-align: right;}
 .blocks {list-style-type: none;margin: auto;width:500px;}
@@ -72,7 +72,7 @@ body {text-align:center;}
 
 		var runningValue = document.getElementById("offset").innerText.replace("Offset: ", "");
 		runningValue = parseInt(listItems.length - endIndex) + parseInt(runningValue);
-		document.getElementById("countdown").innerText = "Countdown: " +  runningValue;
+		document.getElementById("offset").innerText = "Countdown: " +  runningValue;
 		endIndex--;
 	}
 
@@ -92,6 +92,7 @@ body {text-align:center;}
 </script>
 </head>
 <body>
+<div id="animation">
 <ul class="blocks" id="blocks">
 <li class="yellow">8</li>
 <li class="white">7</li>
@@ -107,6 +108,7 @@ body {text-align:center;}
 <input type="button" id="run" value="Start" onclick="javascript:runAnimation();" />
 <div class="container"><div id="comparisons">Comparisons: 0</div><div id="swaps">Swaps: 0</div>
 <div id="offset">Offset: 0</div>
+</div>
 </div>
 </body>
 </html>
