@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bubble Sort Animation</title>
+<style style="text/css">
+body {text-align:center;}
+#run,#reset {margin-top: 10px;}
+.container {padding-top:10px;width: 110px;margin:auto;text-align: right;}
+.blocks {list-style-type: none;margin: auto;width:500px;}
+.blocks li {float:left;margin-right:10px;padding:20px;text-align:center;font-weight:bold;-moz-border-radius: 5px;border-radius: 5px;border:solid 1px #eee;}
+.blocks li.black {background-color:black;color:white;}
+.blocks li.brown {background-color:brown;}
+.blocks li.green {background-color:green;}
+.blocks li.red {background-color:red;}
+.blocks li.yellow {background-color:yellow;}
+.blocks li.pink {background-color:pink;}
+.blocks li.blue {background-color:blue;}
+.blocks li.selected {border:2px solid black;}
+.clear {clear:both;}
+.step {background-color:#eee;padding:10px;}
+</style>
+<script type="text/javascript">
+	var listItems = document.getElementsByTagName("li"),
+		comparisons = 0,
+		swaps = 0,
+		endIndex = 0,
+		offset = 0;
+
+	function startInterval() {
+		var intervalCount = 0,
+			interval = setInterval(function() { 
+            doSwap(intervalCount);
+            intervalCount++; 
+            if(intervalCount >= endIndex) displaySummary(interval);
+            }, 500);
+	}
+
+	function doSwap(index) {
+		if (index > 0) {
+			listItems[index - 1].className = listItems[index - 1].className.replace("selected", "");
+		}
+
+		listItems[index].className = listItems[index].className + " selected";
+			
+        if (endIndex > 0) {
+        	comparisons++;	
+        	document.getElementById("comparisons").innerText = "Comparisons: " + comparisons;
+        
+        	if (listItems[index].innerText > listItems[index + 1].innerText) {
+				var swappingValue = listItems[index].innerText,
+					swappingClassName = listItems[index].className;
+
+				listItems[index].innerText = listItems[index + 1].innerText;
+				listItems[index + 1].innerText = swappingValue;
+
+				listItems[index].className = listItems[index + 1].className;
+				listItems[index + 1].className = swappingClassName;
+
+				swaps++;
+
+				document.getElementById("swaps").innerText = "Swaps: " + swaps;
+			}
+        }
+	}
+
+	function displaySummary(interval) {
+		clearInterval(interval)
+
+		if (endIndex > 0) {
+			startInterval();
+		} 
+
+		var runningValue = document.getElementById("offset").innerText.replace("Offset: ", "");
+		runningValue = parseInt(listItems.length - endIndex) + parseInt(runningValue);
+		document.getElementById("countdown").innerText = "Countdown: " +  runningValue;
+		endIndex--;
+	}
+
+	function runAnimation() {
+		comparisons = 0,
+			swaps = 0;
+		endIndex = listItems.length - 1;
+		startInterval();
+	}
+
+	function reset() {
+		document.getElementById("comparisons").innerText = "Comparisons: 0";
+		document.getElementById("swaps").innerText = "Swaps: 0"; 
+		document.getElementById("offset").innerText = "Offset: 0";
+		document.getElementById("blocks").innerHTML = '<li class="yellow">8</li><li class="white">7</li><li class="red">6</li><li class="pink">5</li><li class="green">4</li><li class="brown">3</li><li class="blue">2</li><li class="black">1</li>'
+	}
+</script>
+</head>
+<body>
+<ul class="blocks" id="blocks">
+<li class="yellow">8</li>
+<li class="white">7</li>
+<li class="red">6</li>
+<li class="pink">5</li>
+<li class="green">4</li>
+<li class="brown">3</li>
+<li class="blue">2</li>
+<li class="black">1</li>
+</ul>
+<div class="clear"></div>
+<input type="button" id="reset" value="Reset" onclick="javascript:reset();" />
+<input type="button" id="run" value="Start" onclick="javascript:runAnimation();" />
+<div class="container"><div id="comparisons">Comparisons: 0</div><div id="swaps">Swaps: 0</div>
+<div id="offset">Offset: 0</div>
+</div>
+</body>
+</html>
